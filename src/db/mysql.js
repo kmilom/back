@@ -72,13 +72,18 @@ function addNew(table, data){
 
 }
 
-function deleteById(table, id){
-
+function deleteElement(table, data){
+    return new Promise((resolve, reject) => {
+        connection.query(`DELETE ${table} WHERE Id = ${data.Id}`, (error, response) => {
+            if (error) return reject(error);
+            resolve(response);
+        });
+    })
 }
 
 module.exports = {
     getAll,
     getById,
     addNew,
-    deleteById
+    deleteElement
 }

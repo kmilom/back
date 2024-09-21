@@ -7,6 +7,7 @@ const router = express.Router();
 
 router.get('/', getAll);
 router.get('/:id', getById);
+router.put('/', deleteElement);
 
 async function getAll(req, res){
     try{
@@ -25,6 +26,15 @@ async function getById(req, res){
         response.error(req, res, err, 500);
     }
     
+}
+
+async function deleteElement(req, res) {
+    try{
+        const item = await controller.deleteElement(req.body);
+        response.succes(req, res, 'Se ha eliminado la persona.', 200);
+    } catch(err){
+        response.error(req, res, err, 500);
+    }
 }
 
 module.exports = router;

@@ -10,7 +10,12 @@ function getById (id) {
     return db.getById(TABLE, id)
 }
 
+function deleteElement (body) {
+    return db.deleteElement(TABLE, body)
+}
+
 module.exports = {
     getAll,
-    getById
+    getById,
+    deleteElement
 }
