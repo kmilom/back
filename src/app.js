@@ -14,6 +14,8 @@ const app = express();
 
 //middleware
 app.use(morgan('dev'));
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 //Configuración
 app.set('port', config.app.port);

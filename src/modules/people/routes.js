@@ -1,13 +1,14 @@
 const express = require('express');
 
 const response = require("../../network/responses");
-const controller = require('./controller')
+const controller = require('./controller');
 
 const router = express.Router();
 
 router.get('/', getAll);
 router.get('/:id', getById);
-router.put('/', deleteElement);
+router.post('/', addNew);
+router.put('/:id', deleteElement);
 
 async function getAll(req, res){
     try{
@@ -25,12 +26,23 @@ async function getById(req, res){
     } catch(err){
         response.error(req, res, err, 500);
     }
-    
 }
+
+async function addNew(req, res) {
+    try{
+        const item = await controller.addNew(req.body);
+        console.log(item.Id);
+        response.succes(req, res, item.Id, 201);
+    } catch(err){
+        console.error("Error en addNew: ", err);
+        response.error(req, res, err, 500);
+    }
+}
+
 
 async function deleteElement(req, res) {
     try{
-        const item = await controller.deleteElement(req.body);
+        const item = await controller.deleteElement(req.params.id);
         response.succes(req, res, 'Se ha eliminado la persona.', 200);
     } catch(err){
         response.error(req, res, err, 500);

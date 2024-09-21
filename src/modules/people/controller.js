@@ -7,15 +7,20 @@ function getAll () {
 }
 
 function getById (id) {
-    return db.getById(TABLE, id)
+    return db.getById(TABLE, id);
 }
 
-function deleteElement (body) {
-    return db.deleteElement(TABLE, body)
+function addNew (data) {
+    return db.addNew(TABLE, data);
+}
+
+function deleteElement (id) {
+    return db.deleteElement(TABLE, id);
 }
 
 module.exports = {
     getAll,
     getById,
+    addNew,
     deleteElement
 }

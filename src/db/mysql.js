@@ -68,13 +68,18 @@ function getById(table, id){
     });
 }
 
-function addNew(table, data){
-
+function addNew(table, data) {
+    return new Promise((resolve, reject) => {
+        connection.query(`INSERT INTO ${table} SET ?`, data, (error, response) => {
+            if (error) return reject(error);
+            resolve({ Id: response.insertId, ...data }); // Devuelve el id del nuevo registro
+        });
+    });
 }
 
-function deleteElement(table, data){
+function deleteElement(table, id){
     return new Promise((resolve, reject) => {
-        connection.query(`DELETE ${table} WHERE Id = ${data.Id}`, (error, response) => {
+        connection.query(`DELETE FROM ${table} WHERE Id = ${id}`, (error, response) => {
             if (error) return reject(error);
             resolve(response);
         });
