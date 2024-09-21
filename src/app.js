@@ -6,6 +6,7 @@ const config = require('./config');
 const genders = require('./modules/genders/routes');
 const people = require('./modules/people/routes');
 const users = require('./modules/users/routes');
+const users = require('./modules/tasks/routes');
 
 const app = express();
 
