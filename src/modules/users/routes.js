@@ -7,6 +7,7 @@ const router = express.Router();
 
 router.get('/', getAll);
 router.get('/:id', getById);
+router.post('/', addNew);
 
 async function getAll(req, res){
     try{
@@ -25,6 +26,17 @@ async function getById(req, res){
         response.error(req, res, err, 500);
     }
     
+}
+
+async function addNew(req, res) {
+    try{
+        const item = await controller.addNew(req.body);
+        console.log(item.Id);
+        response.succes(req, res, item.Id, 201);
+    } catch(err){
+        console.error("Error en addNew: ", err);
+        response.error(req, res, err, 500);
+    }
 }
 
 module.exports = router;

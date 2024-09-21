@@ -10,7 +10,12 @@ function getById (id) {
     return db.getById(TABLE, id)
 }
 
+function addNew (data) {
+    return db.addNew(TABLE, data);
+}
+
 module.exports = {
     getAll,
-    getById
+    getById, 
+    addNew
 }
