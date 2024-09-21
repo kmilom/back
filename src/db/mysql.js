@@ -59,6 +59,11 @@ function getById(table, id){
                 if (error) return reject(error);
                 resolve(response);
             });
+        } else if (table === 'Tasks'){
+            connection.query(`SELECT * FROM ${table} WHERE IdUser = ${id}`, (error, response) => {
+                if (error) return reject(error);
+                resolve(response);
+            });
         } else {
             connection.query(`SELECT * FROM ${table} WHERE Id = ${id}`, (error, response) => {
                 if (error) return reject(error);
