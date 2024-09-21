@@ -20,6 +20,15 @@ function mysqlConnection (){
             console.log("DB conectada!")
         }
     })
+
+    connection.on('error', err => {
+        console.log("Error en la db: ", err);
+        if(err.code === 'PROTOCOL_CONNECTION_LOST'){
+            mysqlConnection();
+        } else{
+            throw err;
+        }
+    });
 }
 
 mysqlConnection();
