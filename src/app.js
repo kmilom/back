@@ -6,7 +6,8 @@ const config = require('./config');
 const genders = require('./modules/genders/routes');
 const people = require('./modules/people/routes');
 const users = require('./modules/users/routes');
-const users = require('./modules/tasks/routes');
+const tasks = require('./modules/tasks/routes');
+const taskState = require('./modules/taskstates/routes');
 
 const app = express();
 
@@ -20,5 +21,7 @@ app.set('port', config.app.port);
 app.use('/api/genders', genders);
 app.use('/api/people', people);
 app.use('/api/users', users);
+app.use('/api/tasks', tasks);
+app.use('/api/taskstates', taskState);
 
 module.exports = app;
