@@ -17,7 +17,7 @@ function mysqlConnection (){
         if(err){
             console.log("Error en la db: ", err);
         } else{
-            console.log("DB conectada!")
+            console.log("DB conectada!");
         }
     })
 
@@ -33,22 +33,39 @@ function mysqlConnection (){
 
 mysqlConnection();
 
-function getAll(table){
-    return new Promise((resolve, reject) => (
-        connection.query(`SELECT * FROM ${table}`, (error, response) => {            
-            if(error) return reject(error);
-            resolve(response);
-        })
-    ));
+function getAll(table) {
+    return new Promise((resolve, reject) => {
+        if (table === 'People') {
+            connection.query(`SELECT Name, LastName, Birthdate, Email, Gender FROM ${table} INNER JOIN Genders ON People.IdGender = Genders.Id`, 
+                (error, response) => {
+                if (error) return reject(error);
+                resolve(response);
+            });
+        } else {
+            connection.query(`SELECT * FROM ${table}`, (error, response) => {
+                if (error) return reject(error);
+                resolve(response);
+            });
+        }
+    });
 }
 
+
 function getById(table, id){
-    return new Promise((resolve, reject) => (
-        connection.query(`SELECT * FROM ${table} WHERE Id = ${id}`, (error, response) => {
-            if(error) return reject(error);
-            resolve(response);
-        })
-    ));
+    return new Promise((resolve, reject) => {
+        if (table === 'People') {
+            connection.query(`SELECT Name, LastName, Birthdate, Email, Gender FROM ${table} INNER JOIN Genders ON People.IdGender = Genders.Id WHERE People.Id = ${id}`, 
+                (error, response) => {
+                if (error) return reject(error);
+                resolve(response);
+            });
+        } else {
+            connection.query(`SELECT * FROM ${table} WHERE Id = ${id}`, (error, response) => {
+                if (error) return reject(error);
+                resolve(response);
+            });
+        }
+    });
 }
 
 function addNew(table, data){
