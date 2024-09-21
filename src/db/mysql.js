@@ -38,12 +38,17 @@ function getAll(table){
         connection.query(`SELECT * FROM ${table}`, (error, response) => {            
             if(error) return reject(error);
             resolve(response);
-    })
-    ))
+        })
+    ));
 }
 
 function getById(table, id){
-
+    return new Promise((resolve, reject) => (
+        connection.query(`SELECT * FROM ${table} WHERE Id = ${id}`, (error, response) => {
+            if(error) return reject(error);
+            resolve(response);
+        })
+    ));
 }
 
 function addNew(table, data){
