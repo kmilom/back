@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors');
 const config = require('./config');
 
 //módulos
@@ -16,6 +17,9 @@ app.use(morgan('dev'));
 
 //Configuración
 app.set('port', config.app.port);
+
+//Comunicación con el front
+app.use(cors());
 
 //Rutas
 app.use('/api/genders', genders);
