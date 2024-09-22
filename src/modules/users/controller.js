@@ -1,4 +1,5 @@
 const db = require('../../db/mysql');
+const bcrypt = require('bcryptjs');
 
 const TABLE = 'Users';
 
@@ -10,8 +11,16 @@ function getById (id) {
     return db.getById(TABLE, id)
 }
 
-function addNew (data) {
-    return db.addNew(TABLE, data);
+async function addNew (data) {
+
+    const authData = {
+        Id: data.Id,
+        Username: data.Username
+    }
+
+    authData.Password = await bcrypt.hash(data.Password, 5);
+
+    return db.addNew(TABLE, authData);
 }
 
 module.exports = {

@@ -7,6 +7,7 @@ A continucación se encuentran las librerías usadas en el proyecto y sus respec
 3. mysql: npm i mysql
 4. morgan: npm i morgan
 5. cors: npm i cors
+6. Bcryptjs: npm i bcryptjs
 
 # Indicaciones generales
 
