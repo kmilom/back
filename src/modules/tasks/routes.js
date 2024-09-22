@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/', getAll);
 router.get('/:id', getById);
 router.post('/', addNew);
-router.put('/', deleteElement);
+router.put('/:id', deleteElement);
 
 async function getAll(req, res){
     try{
@@ -41,7 +41,7 @@ async function addNew(req, res) {
 
 async function deleteElement(req, res) {
     try{
-        const item = await controller.deleteElement(req.body);
+        const item = await controller.deleteElement(req.params.id);
         response.succes(req, res, 'La tarea ha sido eliminada.', 200);
     } catch(err){
         response.error(req, res, err, 500);
