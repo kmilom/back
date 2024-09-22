@@ -77,7 +77,7 @@ function addNew(table, data) {
     return new Promise((resolve, reject) => {
         connection.query(`INSERT INTO ${table} SET ?`, data, (error, response) => {
             if (error) return reject(error);
-            resolve({ Id: response.insertId, ...data }); // Devuelve el id del nuevo registro
+            resolve({ Id: response.insertId, ...data }); 
         });
     });
 }
@@ -100,10 +100,25 @@ function deleteElement(table, id){
     })
 }
 
+function query(table, data){
+    return new Promise((resolve, reject) => {
+        connection.query(`SELECT * FROM ${table} WHERE Username = ?`, [data.Username], (error, response) => {
+            if (error) return reject(error);
+            if (response.length > 0) {
+                resolve(response[0]); 
+            } else {
+                reject(new Error('Usuario no encontrado.'));
+            }
+        });
+    });
+}
+
+
 module.exports = {
     getAll,
     getById,
     addNew,
     updateElement,
-    deleteElement
+    deleteElement,
+    query
 }

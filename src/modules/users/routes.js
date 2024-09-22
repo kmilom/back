@@ -1,13 +1,28 @@
 const express = require('express');
 
 const response = require("../../network/responses");
-const controller = require('./controller')
+const controller = require('./controller');
+const authenticateToken = require('./middleware/auth');
 
 const router = express.Router();
 
+router.get('/login', login);
 router.get('/', getAll);
-router.get('/:id', getById);
+router.get('/:id', authenticateToken, getById);
 router.post('/', addNew);
+
+async function login(req, res) {
+    console.log("Usuario recibido: ", req.query.Username);
+    try {
+        
+        const token = await controller.login(req.query.Username, req.query.Password);
+        response.succes(req, res, token, 200); 
+    } catch (err) {
+        console.error(err); 
+        response.error(req, res, err.message || 'Error en el servidor', 500);
+    }
+}
+
 
 async function getAll(req, res){
     try{
