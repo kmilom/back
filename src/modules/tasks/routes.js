@@ -8,6 +8,7 @@ const router = express.Router();
 router.get('/', getAll);
 router.get('/:id', getById);
 router.post('/', addNew);
+router.post('/editar', updateElement);
 router.put('/:id', deleteElement);
 
 async function getAll(req, res){
@@ -35,6 +36,17 @@ async function addNew(req, res) {
         response.succes(req, res, item.Id, 201);
     } catch(err){
         console.error("Error en addNew: ", err);
+        response.error(req, res, err, 500);
+    }
+}
+
+async function updateElement(req, res) {
+    try{
+        const item = await controller.updateElement(req.body);
+        console.log(item.Id);
+        response.succes(req, res, item.Id, 201);
+    } catch(err){
+        console.error("Error en updateElement: ", err);
         response.error(req, res, err, 500);
     }
 }

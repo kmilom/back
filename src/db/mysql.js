@@ -82,6 +82,15 @@ function addNew(table, data) {
     });
 }
 
+function updateElement(table, data) {
+    return new Promise((resolve, reject) => {
+        connection.query(`UPDATE ${table} SET ? WHERE Id = ?`, [data, data.Id], (error, response) => {
+            if (error) return reject(error);
+            resolve(response);
+        });
+    });
+}
+
 function deleteElement(table, id){
     return new Promise((resolve, reject) => {
         connection.query(`DELETE FROM ${table} WHERE Id = ${id}`, (error, response) => {
@@ -95,5 +104,6 @@ module.exports = {
     getAll,
     getById,
     addNew,
+    updateElement,
     deleteElement
 }
