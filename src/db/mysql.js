@@ -1,6 +1,13 @@
+/**
+ * @module Database
+ * @description Este módulo maneja la conexión y las operaciones con la base de datos MySQL, incluyendo consultas,
+ * inserciones, actualizaciones y eliminaciones.
+ */
+
 const mysql = require('mysql');
 const config = require('../config');
 
+// Configuración de la base de datos a partir del archivo de configuración
 const dbconfig = {
     host: config.mysql.host,
     user: config.mysql.user,
@@ -10,6 +17,8 @@ const dbconfig = {
 
 let connection;
 
+// Crea una conexión con la base de datos MySQL y maneja errores de conexión. Si la conexión se pierde,
+// intenta reconectarse automáticamente.
 function mysqlConnection (){
     connection = mysql.createConnection(dbconfig);
 
@@ -24,7 +33,7 @@ function mysqlConnection (){
     connection.on('error', err => {
         console.log("Error en la db: ", err);
         if(err.code === 'PROTOCOL_CONNECTION_LOST'){
-            mysqlConnection();
+            mysqlConnection(); // Reconectar si se pierde la conexión
         } else{
             throw err;
         }
@@ -33,6 +42,7 @@ function mysqlConnection (){
 
 mysqlConnection();
 
+// Recupera todos los registros de una tabla específica.
 function getAll(table) {
     return new Promise((resolve, reject) => {
         if (table === 'People') {
@@ -50,7 +60,7 @@ function getAll(table) {
     });
 }
 
-
+// Recupera un registro específico de una tabla usando su ID.
 function getById(table, id){
     return new Promise((resolve, reject) => {
         if (table === 'People') {
@@ -73,6 +83,7 @@ function getById(table, id){
     });
 }
 
+// Inserta un nuevo registro en la tabla.
 function addNew(table, data) {
     return new Promise((resolve, reject) => {
         connection.query(`INSERT INTO ${table} SET ?`, data, (error, response) => {
@@ -82,6 +93,7 @@ function addNew(table, data) {
     });
 }
 
+// Actualiza un registro existente en la tabla.
 function updateElement(table, data) {
     return new Promise((resolve, reject) => {
         connection.query(`UPDATE ${table} SET ? WHERE Id = ?`, [data, data.Id], (error, response) => {
@@ -91,6 +103,7 @@ function updateElement(table, data) {
     });
 }
 
+// Elimina un registro de la tabla usando su ID.
 function deleteElement(table, id){
     return new Promise((resolve, reject) => {
         connection.query(`DELETE FROM ${table} WHERE Id = ${id}`, (error, response) => {
@@ -100,6 +113,7 @@ function deleteElement(table, id){
     })
 }
 
+// Ejecuta una consulta para buscar un usuario por su nombre de usuario.
 function query(table, data){
     return new Promise((resolve, reject) => {
         connection.query(`SELECT * FROM ${table} WHERE Username = ?`, [data.Username], (error, response) => {

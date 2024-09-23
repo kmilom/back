@@ -3,7 +3,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const config = require('./config');
 
-//módulos
+// Módulos
 const genders = require('./modules/genders/routes');
 const people = require('./modules/people/routes');
 const users = require('./modules/users/routes');
@@ -12,18 +12,18 @@ const taskState = require('./modules/taskstates/routes');
 
 const app = express();
 
-//middleware
+// Middleware
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-//Configuración
+// Configuración
 app.set('port', config.app.port);
 
-//Comunicación con el front
+// Comunicación con el front
 app.use(cors());
 
-//Rutas
+// Rutas
 app.use('/api/genders', genders);
 app.use('/api/people', people);
 app.use('/api/users', users);

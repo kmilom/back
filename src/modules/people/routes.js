@@ -1,3 +1,8 @@
+/**
+ * @module PeopleRoutes
+ * @description Este módulo gestiona las rutas relacionadas con las operaciones CRUD de la tabla `People` en la base de datos.
+ */
+
 const express = require('express');
 
 const response = require("../../network/responses");
@@ -5,11 +10,13 @@ const controller = require('./controller');
 
 const router = express.Router();
 
+// Rutas para consultas a la base de Datos.
 router.get('/', getAll);
 router.get('/:id', getById);
 router.post('/', addNew);
 router.put('/:id', deleteElement);
 
+// Controlador para obtener todas las personas
 async function getAll(req, res){
     try{
         const items = await controller.getAll();
@@ -19,6 +26,7 @@ async function getAll(req, res){
     }
 }
 
+// Controlador para obtener una persona por ID
 async function getById(req, res){
     try{
         const item = await controller.getById(req.params.id);
@@ -28,6 +36,7 @@ async function getById(req, res){
     }
 }
 
+// Controlador para agregar una nueva persona
 async function addNew(req, res) {
     try{
         const item = await controller.addNew(req.body);
@@ -39,7 +48,7 @@ async function addNew(req, res) {
     }
 }
 
-
+// Controlador para eliminar una persona por ID
 async function deleteElement(req, res) {
     try{
         const item = await controller.deleteElement(req.params.id);
