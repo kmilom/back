@@ -10,6 +10,14 @@ Para el correcto funcionamiento del proyecto, renombrar el archivo '.env.example
     3. Instalar dependencias: npm install
     4. Iniciar el proyecto: npm run dev
 
+
+
+# Base de datos
+
+- A continuación, diagrama entidad-relación de la base de datos
+![ERD todolistdb](dbimage.jpg)
+
+
 # Librerías del proyecto
 
 A continucación se encuentran las librerías usadas en el proyecto y sus respectivos comandos de instalación:
