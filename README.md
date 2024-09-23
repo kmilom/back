@@ -38,5 +38,6 @@ A continucación se encuentran las librerías usadas en el proyecto y sus respec
 5. cors: npm i cors
 6. Bcryptjs: npm i bcryptjs
 7. JSONWebToken: npm i jsonwebtoken
+8. Jest: npm install --save-dev jest
 
 **Nota:** Estas librerías no es necesario instalarlas, debido a que esto se hará automáticamente al seguir los pasos descritos en las indicaciones generales.
