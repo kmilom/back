@@ -1,0 +1,5 @@
+INSERT INTO `todolist`.`genders` (`Gender`) VALUES ('Masculino');
+INSERT INTO `todolist`.`genders` (`Gender`) VALUES ('Femenino');
+
+INSERT INTO `todolist`.`taskstates` (`State`) VALUES ('Pendiente');
+INSERT INTO `todolist`.`taskstates` (`State`) VALUES ('Completado');
